@@ -1,5 +1,7 @@
 # Soft nudge
 
+![Example](https://github.com/80sVectorz/soft_nudge/blob/main/images/Example.gif?raw=true)
+
 Soft nudge is a module with the goal to provide a reminder without the invasive beeps of conventional timers. I made it to solve a personal issue, but the code is free to use under the GPL-3.0 license.
 
 # Original problem & usage example
