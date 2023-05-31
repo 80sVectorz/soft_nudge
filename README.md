@@ -7,7 +7,7 @@ Soft nudge is a module with the goal to provide a reminder without the invasive 
 Soft nudge was made to serve as a non invasive reminder that would trigger every 15 minutes. In my case to remind me to look outside and give my eyes a break.
 
 # Disclaimer
-**Soft nudge only supports windows.
+**Soft nudge only supports windows.**
 **The current version of Soft nudge requires a GPU and Cuda using Numba Cuda**
 
 **The animation does not overlay on full screen programs that claim the screen and don't use the windowing system E.G full-screen minecraft.**
