@@ -1,7 +1,7 @@
 from numba import cuda
 import numpy as np
 from math import sin, cos, sqrt, copysign
-from cuda_utils import lerp, general_sine_wave
+from soft_nudge.cuda_utils import lerp, general_sine_wave
 
 
 # All animation made using this custom desmos graph: https://www.desmos.com/calculator/6c1zrrl03z https://www.desmos.com/calculator/knipfwlh2j

@@ -5,7 +5,7 @@ import win32con
 import win32gui
 import wx
 import time
-import soft_nudge_cuda
+from soft_nudge import soft_nudge_cuda
 
 
 class BLENDFUNCTION(ctypes.Structure):

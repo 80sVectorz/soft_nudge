@@ -1,3 +1,2 @@
-import cuda_utils
-import soft_nudge_cuda
-import soft_nudge
+from . import cuda_utils, soft_nudge_cuda
+from soft_nudge.soft_nudge import *
