@@ -27,11 +27,12 @@ class Frame(wx.Frame):
         duration=10.0,
         trend_split=0.6,
         flat_time_pct=0.4,
+        size=(500, 500),
     ):
         wx.Frame.__init__(
             self,
             parent,
-            size=(500, 500),
+            size=size,
             style=wx.STAY_ON_TOP | wx.CLIP_CHILDREN | wx.TRANSPARENT_WINDOW,
         )
 
@@ -44,9 +45,7 @@ class Frame(wx.Frame):
             extended_style_settings
             | win32con.WS_EX_LAYERED
             | win32con.WS_POPUP
-            | win32con.WS_VISIBLE
-            | win32con.WS_EX_TRANSPARENT
-            | win32con.WS_EX_TOPMOST,
+            | win32con.WS_EX_TRANSPARENT,
         )
 
         self.SetTitle("Soft Nudge")
@@ -66,6 +65,7 @@ class Frame(wx.Frame):
         self.flat_time_pct = flat_time_pct
 
     def on_timer(self, event):
+        event.Skip()
         self.Refresh(True)
 
     def on_size(self, event):
@@ -75,27 +75,27 @@ class Frame(wx.Frame):
     def layered_update(self, dc, blend_func):
         # Code has been translated/inferred using: https://www.vbforums.com/showthread.php?888761-UpdateLayeredWindow()-Drove-Me-Crazy
         # https://stackoverflow.com/questions/43712796/draw-semitransparently-in-invisible-layered-window
-        rect = self.GetRect()
-        w, h = self.GetSize()
-        px, py = rect.GetPosition()
+        # https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-updatelayeredwindow
+        w, h = wx.DisplaySize()
+        scrdc = wx.ScreenDC().GetHandle()
+        px, py = 0, 0
         hwnd = self.GetHandle()
-
         res = ctypes.windll.user32.UpdateLayeredWindow(
-            HWND(hwnd),
-            HDC(wx.ScreenDC().GetHandle()),
-            ctypes.pointer(POINT(px, py)),
-            ctypes.pointer(SIZE(w, h)),
-            HDC(dc.GetHandle()),
-            ctypes.pointer(POINT(0, 0)),
-            COLORREF(0),
-            ctypes.pointer(blend_func),
-            DWORD(win32con.ULW_ALPHA),
+            HWND(hwnd),  # [in]           HWND          hWnd,
+            HDC(scrdc),  # [in, optional] HDC           hdcDst,
+            ctypes.pointer(POINT(px, py)),  # [in, optional] POINT         *pptDst,
+            ctypes.pointer(SIZE(w, h)),  # [in, optional] SIZE          *psize,
+            HDC(dc.GetHandle()),  # [in, optional] HDC           hdcSrc,
+            ctypes.pointer(POINT(0, 0)),  # [in, optional] POINT         *pptSrc,
+            COLORREF(0),  # [in]           COLORREF      crKey,
+            ctypes.pointer(blend_func),  # [in, optional] BLENDFUNCTION *pblend,
+            DWORD(win32con.ULW_ALPHA),  # [in]           DWORD         dwFlags
         )
         if res == 0:
             print(ctypes.windll.kernel32.GetLastError())
 
     def on_paint(self, event):
-        w, h = self.GetSize()
+        w, h = wx.DisplaySize()
 
         self.time = time.time_ns() - self.start_time
         cdata, adata = soft_nudge_cuda.get_bmp_data(
@@ -131,9 +131,11 @@ def nudge(
     duration=10.0,
     trend_split=0.6,
     flat_time_pct=0.4,
+    target_display=0,
 ):
-    app = wx.App(False)
+    app = wx.App()
     frame = Frame(
+        size=wx.DisplaySize(),
         color=color_rgba,
         period=anim_period,
         amplitude=anim_amplitude,
@@ -141,7 +143,9 @@ def nudge(
         trend_split=trend_split,
         flat_time_pct=flat_time_pct,
     )
-    frame.ShowFullScreen(True)
+
+    frame.Disable()
+    frame.Show(True)  # Size is later set to be full screen in the layered update.
     app.MainLoop()
 
 

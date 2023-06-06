@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "soft_nudge"
-version = "1.0.2"
+version = "1.0.3"
 authors = [
   { name="80sVectorz"},
 ]
