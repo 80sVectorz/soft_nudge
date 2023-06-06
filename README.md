@@ -23,3 +23,6 @@ Pull requests are welcome if you're willing to spend the time. If anyone wants t
 * ctypes
 * Numba Cuda
 * time
+## Animation graphs (Desmos)
+* Wave animation: https://www.desmos.com/calculator/v7hyz0urjc
+* Pop in time curve: https://www.desmos.com/calculator/n1wdxvev8v
