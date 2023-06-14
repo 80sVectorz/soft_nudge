@@ -6,23 +6,28 @@ Soft nudge is a module with the goal to provide a reminder without the invasive 
 
 # Original problem & usage example
 
-Soft nudge was made to serve as a non invasive reminder that would trigger every 15 minutes. In my case to remind me to look outside and give my eyes a break.
+Soft nudge was made to serve as a non-invasive reminder that would trigger every 20 minutes. In my case to remind me to look outside and give my eyes a break.
+
+# Basic usage
+You can find a simple overview of how to use this package [here](https://github.com/80sVectorz/soft_nudge/blob/master/BasicUsage.md).
+
 
 # Disclaimer
 **Soft nudge only supports windows.**
 **The current version of Soft nudge requires a GPU and Cuda using Numba Cuda**
 
-**The animation does not overlay on full screen programs that claim the screen and don't use the windowing system E.G full-screen minecraft.**
+**The animation does not overlay on full screen programs that claim the screen and don't use the windowing system E.G. full-screen minecraft.**
 
 As this project was made for personal purposes first, it's probably not the cleanest code base.
-Pull requests are welcome if you're willing to spend the time. If anyone wants to write a non gpu method to show the animation feel free to do so.
+Pull requests are welcome if you're willing to spend the time. If anyone wants to write a non GPU method to show the animation feel free to do so.
 
 # Dependencies
-* wxpython
+* wxPython
 * pywin32
-* ctypes
+* CTypes
 * Numba Cuda
 * time
+
 ## Animation graphs (Desmos)
-* Wave animation: https://www.desmos.com/calculator/v7hyz0urjc
-* Pop in time curve: https://www.desmos.com/calculator/n1wdxvev8v
+* Wave animation: https://www.desmos.com/calculator/gnj2fjlpll
+* Pop in time curve: https://www.desmos.com/calculator/zw8dlswf2j
