@@ -28,6 +28,7 @@ class Frame(wx.Frame):
         trend_split=0.6,
         flat_time_pct=0.4,
         size=(500, 500),
+        target_display=0,
     ):
         wx.Frame.__init__(
             self,
@@ -63,6 +64,7 @@ class Frame(wx.Frame):
         self.duration = duration
         self.trend_split = trend_split
         self.flat_time_pct = flat_time_pct
+        self.target_display = target_display
 
     def on_timer(self, event):
         event.Skip()
@@ -76,9 +78,11 @@ class Frame(wx.Frame):
         # Code has been translated/inferred using: https://www.vbforums.com/showthread.php?888761-UpdateLayeredWindow()-Drove-Me-Crazy
         # https://stackoverflow.com/questions/43712796/draw-semitransparently-in-invisible-layered-window
         # https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-updatelayeredwindow
-        w, h = wx.DisplaySize()
+
+        screen_geometry = wx.Display(self.target_display).GetGeometry()
+        w, h = screen_geometry.GetSize()
+        px, py = screen_geometry.GetPosition()
         scrdc = wx.ScreenDC().GetHandle()
-        px, py = 0, 0
         hwnd = self.GetHandle()
         res = ctypes.windll.user32.UpdateLayeredWindow(
             HWND(hwnd),  # [in]           HWND          hWnd,
@@ -95,7 +99,7 @@ class Frame(wx.Frame):
             print(ctypes.windll.kernel32.GetLastError())
 
     def on_paint(self, event):
-        w, h = wx.DisplaySize()
+        w, h = wx.Display(self.target_display).GetGeometry().GetSize()
 
         self.time = time.time_ns() - self.start_time
         cdata, adata = soft_nudge_cuda.get_bmp_data(
@@ -142,6 +146,7 @@ def nudge(
         duration=duration,
         trend_split=trend_split,
         flat_time_pct=flat_time_pct,
+        target_display=target_display,
     )
 
     frame.Disable()

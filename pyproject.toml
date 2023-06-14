@@ -4,11 +4,11 @@ build-backend = "hatchling.build"
 
 [project]
 name = "soft_nudge"
-version = "1.0.3"
+version = "1.0.4"
 authors = [
   { name="80sVectorz"},
 ]
-description = "A non invasive timer to give you soft nudge in the right direction."
+description = "A non invasive timer to give you a soft nudge in the right direction."
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
