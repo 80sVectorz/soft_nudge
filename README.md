@@ -26,7 +26,6 @@ Pull requests are welcome if you're willing to spend the time. If anyone wants t
 * pywin32
 * CTypes
 * Numba Cuda
-* time
 
 ## Animation graphs (Desmos)
 * Wave animation: https://www.desmos.com/calculator/gnj2fjlpll
