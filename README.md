@@ -30,4 +30,4 @@ Pull requests are welcome if you're willing to spend the time. If anyone wants t
 
 ## Animation graphs (Desmos)
 * Wave animation: https://www.desmos.com/calculator/gnj2fjlpll
-* Pop in time curve: https://www.desmos.com/calculator/zw8dlswf2j
+* Pop in time curve: https://www.desmos.com/calculator/orf5s78po2

@@ -62,15 +62,16 @@ def render_graphics_cuda(
     gridX = cuda.gridDim.x * cuda.blockDim.x  # type: ignore
     gridY = cuda.gridDim.y * cuda.blockDim.y  # type: ignore
 
-    t1 = t / 8_000_000_00
-    xt = t1
+    tseconds = t/1_000_000_000 
+    t1 = t/8_000_000_00
+    xt = tseconds
     duration_a = duration * trend_split
-    duration_m = (duration - duration_a) * flat_time_pct
-    duration_b = duration - duration_a - duration_m
-    # progress formula: https://www.desmos.com/calculator/1yg16ghuk9 https://www.desmos.com/calculator/dde2qtpb14
+    duration_ms = (duration - duration_a) * flat_time_pct
+    duration_b = duration - duration_a - duration_ms
+    # progress formula: https://www.desmos.com/calculator/orf5s78po2
     fa = slope(xt - duration_a, duration_a)
     fb = -slope(xt - duration, duration_b) + 1
-    xfade = -slope(xt - duration, duration_b + duration_m) + 1
+    xfade = -slope(xt - duration, duration_b + duration_ms) + 1
 
     progress = lerp(fb, fa, xfade) + 0.01
 
@@ -78,13 +79,13 @@ def render_graphics_cuda(
         for y in range(startY, height, gridY):
             px = x
             py = y
-            if x == 0 and y == 0 and progress <= 0.01:
+            if x == 0 and y == 0 and tseconds >= duration:
                 # Trigger kill with this color: 101 110 100 are the codes for e n d in ascii: http://sticksandstones.kstrom.com/appen.html
                 image[y, x, 0] = 101
                 image[y, x, 1] = 110
                 image[y, x, 2] = 100
                 image[y, x, 3] = 255
-                break
+                continue
 
             pixel_r = 0
             pixel_g = 0
@@ -101,7 +102,7 @@ def render_graphics_cuda(
                 amplitude,
                 w * lerp(1.15, 0.90, progress - 0.01),
                 h * lerp(1.15, 0.90, progress - 0.01),
-                t1,
+                tseconds,
             )
             if a < 50:
                 pixel_r = rgba[0]

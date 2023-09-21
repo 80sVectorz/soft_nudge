@@ -45,7 +45,6 @@ class Frame(wx.Frame):
             win32con.GWL_EXSTYLE,
             extended_style_settings
             | win32con.WS_EX_LAYERED
-            | win32con.WS_POPUP
             | win32con.WS_EX_TRANSPARENT,
         )
 
@@ -114,7 +113,8 @@ class Frame(wx.Frame):
             self.time,
         )
         if cdata[0, 0].tolist() == [101, 110, 100]:
-            self.Close(force=True)
+            exit()
+
         img = wx.Image(w, h)
         img.SetData(cdata)
         img.SetAlpha(adata)
@@ -126,7 +126,6 @@ class Frame(wx.Frame):
 
 def main():
     nudge((30, 173, 243, 40), 14, 0.02, duration=6.0)
-
 
 def nudge(
     color_rgba,
@@ -148,7 +147,6 @@ def nudge(
         flat_time_pct=flat_time_pct,
         target_display=target_display,
     )
-
     frame.Disable()
     frame.Show(True)  # Size is later set to be full screen in the layered update.
     app.MainLoop()
