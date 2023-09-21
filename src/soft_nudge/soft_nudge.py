@@ -17,18 +17,18 @@ class BLENDFUNCTION(ctypes.Structure):
     ]
 
 
-class Frame(wx.Frame):
+class SoftNudgeFrame(wx.Frame):
     def __init__(
         self,
         parent=None,
-        color=(36, 173, 243, 20),
-        period=14,
-        amplitude=0.02,
-        duration=10.0,
-        trend_split=0.6,
-        flat_time_pct=0.4,
-        size=(500, 500),
-        target_display=0,
+        color: tuple[int,int,int,int] = (36, 173, 243, 20),
+        period: float = 14.0,
+        amplitude: float = 0.02,
+        duration: float = 10.0,
+        trend_split: float = 0.6,
+        flat_time_pct: float = 0.4,
+        size: tuple[int,int] = (500, 500),
+        target_display: int = 0,
     ):
         wx.Frame.__init__(
             self,
@@ -127,18 +127,24 @@ class Frame(wx.Frame):
 def main():
     nudge((30, 173, 243, 40), 14, 0.02, duration=6.0)
 
+
 def nudge(
-    color_rgba,
-    anim_period,
-    anim_amplitude,
-    duration=10.0,
-    trend_split=0.6,
-    flat_time_pct=0.4,
-    target_display=0,
+    color_rgba: tuple[int,int,int,int],
+    anim_period: float,
+    anim_amplitude: float,
+    duration: float = 10.0,
+    trend_split: float = 0.6,
+    flat_time_pct: float = 0.4,
+    target_display: int = 0,
 ):
+    """Starts a soft nudge animation by creating a full screen frame and rendering with the GPU.
+
+    **IMPORTANT**
+    This method will kill the current thread when the animation is finished.
+    """
     app = wx.App()
-    frame = Frame(
-        size=wx.DisplaySize(),
+    frame = SoftNudgeFrame(
+        size=wx.Display(target_display).GetGeometry().GetSize(),
         color=color_rgba,
         period=anim_period,
         amplitude=anim_amplitude,

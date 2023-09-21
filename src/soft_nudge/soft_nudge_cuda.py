@@ -4,7 +4,6 @@ from math import sin, cos, sqrt, copysign
 from soft_nudge.cuda_utils import lerp, general_sine_wave
 
 
-# All animation made using this custom desmos graph: https://www.desmos.com/calculator/6c1zrrl03z https://www.desmos.com/calculator/knipfwlh2j
 @cuda.jit(device=True, cache=True)
 def fsx(x, y, period, amplitude, w, h, t):
     return amplitude * abs(h) * (sin(x / (w / period) + t) * sin(t)) + x + h
