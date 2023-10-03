@@ -14,19 +14,18 @@ You can find a simple overview of how to use this package [here](https://github.
 
 # Disclaimer
 **Soft nudge only supports windows.**
-**The current version of Soft nudge requires a GPU and Cuda using Numba Cuda**
-
-**The animation does not overlay on full screen programs that claim the screen and don't use the windowing system E.G. full-screen minecraft.**
+**The animation does not overlay on full screen programs that claim the screen and don't use the windowing system E.G. full-screen Minecraft.**
 
 As this project was made for personal purposes first, it's probably not the cleanest code base.
-Pull requests are welcome if you're willing to spend the time. If anyone wants to write a non GPU method to show the animation feel free to do so.
+Pull requests are welcome if you're willing to spend the time. 
 
 # Dependencies
 * wxPython
 * pywin32
 * CTypes
+* Numpy
 * Numba Cuda
 
 ## Animation graphs (Desmos)
-* Wave animation: https://www.desmos.com/calculator/wthc9ryph8
+* Wave animation: https://www.desmos.com/calculator/ln1kyumpun
 * Pop in time curve: https://www.desmos.com/calculator/orf5s78po2

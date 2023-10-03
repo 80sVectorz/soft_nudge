@@ -1,5 +1,7 @@
-baked_animations_cache/
-dev_scratch_pad_file/
+.vscode/*
+
+baked_animations_cache/*
+dev_scratch_pad_files/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
